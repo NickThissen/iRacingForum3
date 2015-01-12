@@ -10,6 +10,7 @@ import org.androidannotations.annotations.EFragment;
 import java.util.ArrayList;
 
 import nl.nickthissen.iracingforum3.MainActivity;
+import nl.nickthissen.iracingforum3.R;
 import nl.nickthissen.iracingforum3.adapters.ForumListAdapter;
 import nl.nickthissen.iracingforum3.adapters.ListAdapter;
 import nl.nickthissen.iracingforum3.adapters.ThreadListAdapter;
@@ -23,7 +24,7 @@ import nl.nickthissen.iracingforum3.models.forum.ThreadList;
 /**
  * Created by Nick on 1/11/2015.
  */
-@EFragment
+@EFragment(R.layout.forumlist)
 public class ForumListFragment extends DrawerListFragment implements ForumListAdapter.ListItemClickListener<Forum>
 {
     private static final String KEY_FORUMLIST = "KEY_FORUMLIST";
@@ -38,7 +39,7 @@ public class ForumListFragment extends DrawerListFragment implements ForumListAd
 
     public static ForumListFragment create(ForumList forums)
     {
-        ForumListFragment fragment = new ForumListFragment();
+        ForumListFragment fragment = new ForumListFragment_();
         Bundle args = new Bundle();
         args.putSerializable(KEY_FORUMLIST, forums);
         fragment.setArguments(args);
@@ -47,8 +48,12 @@ public class ForumListFragment extends DrawerListFragment implements ForumListAd
 
     @Override public void onCreate(Bundle bundle)
     {
+        super.onCreate(bundle);
+
         _activity = (MainActivity) this.getActivity();
-        _forumList = (ForumList)bundle.getSerializable(KEY_FORUMLIST);
+
+        Bundle args = this.getArguments();
+        _forumList = (ForumList)args.getSerializable(KEY_FORUMLIST);
     }
 
     @AfterViews
@@ -70,7 +75,7 @@ public class ForumListFragment extends DrawerListFragment implements ForumListAd
         ForumDrawerItem item = createDrawerItem(forum);
 
         // Replace current
-        _activity.replaceDrawerItem(item);
+        _activity.showDrawerItem(item);
     }
 
     @Override
@@ -81,6 +86,7 @@ public class ForumListFragment extends DrawerListFragment implements ForumListAd
 
         // Add it to the navigation drawer in the background
         _activity.addDrawerItem(item);
+        _activity.showDrawerItemInBackground(item);
     }
 
     private ForumDrawerItem createDrawerItem(Forum forum)
@@ -88,5 +94,15 @@ public class ForumListFragment extends DrawerListFragment implements ForumListAd
         ThreadListFragment fragment = ThreadListFragment.create(forum);
         ForumDrawerItem item = new ForumDrawerItem(forum, fragment);
         return item;
+    }
+
+    @Override public void close()
+    {
+        // TODO: cancel web tasks
+    }
+
+    @Override public String tag()
+    {
+        return "FORUMLISTFRAGMENT";
     }
 }

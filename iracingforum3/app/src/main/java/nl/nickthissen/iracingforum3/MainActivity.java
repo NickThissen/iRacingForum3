@@ -12,7 +12,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
@@ -21,12 +20,10 @@ import org.androidannotations.annotations.ViewById;
 import java.util.ArrayList;
 
 import nl.nickthissen.iracingforum3.adapters.DrawerAdapter;
+import nl.nickthissen.iracingforum3.fragments.DrawerListFragment;
 import nl.nickthissen.iracingforum3.fragments.ForumListFragment;
 import nl.nickthissen.iracingforum3.models.drawer.DrawerItem;
-import nl.nickthissen.iracingforum3.models.drawer.DrawerItemHeader;
-import nl.nickthissen.iracingforum3.models.drawer.ForumDrawerItem;
 import nl.nickthissen.iracingforum3.models.drawer.ForumListDrawerItem;
-import nl.nickthissen.iracingforum3.models.drawer.ThreadDrawerItem;
 import nl.nickthissen.iracingforum3.models.forum.Forum;
 import nl.nickthissen.iracingforum3.models.forum.ForumList;
 
@@ -38,6 +35,7 @@ public class MainActivity extends ActionBarActivity implements DrawerAdapter.OnI
 
     private ArrayList<DrawerItem> _drawerItems;
     private ForumListDrawerItem _forumListDrawerItem;
+    private DrawerItem _selectedDrawerItem;
 
     private ActionBarDrawerToggle _drawerToggle;
     private CharSequence _title;
@@ -47,15 +45,14 @@ public class MainActivity extends ActionBarActivity implements DrawerAdapter.OnI
     {
         super.onCreate(bundle);
 
-        _drawerItems = new ArrayList<>();
 
     }
 
     @AfterViews
     void afterViews()
     {
-        this.getForums();
         this.setupDrawer();
+        this.getForums();
         this.refreshDrawer();
     }
 
@@ -72,6 +69,11 @@ public class MainActivity extends ActionBarActivity implements DrawerAdapter.OnI
 
         ForumListFragment fragment = ForumListFragment.create(forumList);
        _forumListDrawerItem = new ForumListDrawerItem(forumList, fragment);
+
+        _drawerItems = new ArrayList<>();
+        _drawerItems.add(_forumListDrawerItem); // always on top
+        _selectedDrawerItem = _forumListDrawerItem;
+        this.showItemFragment(_forumListDrawerItem);
     }
 
     //region Navigation Drawer
@@ -101,41 +103,11 @@ public class MainActivity extends ActionBarActivity implements DrawerAdapter.OnI
         };
 
         _drawer.setDrawerListener(_drawerToggle);
-
-//        if (savedInstanceState == null) {
-//            selectItem(0);
-//        }
     }
 
     private void refreshDrawer()
     {
-        ArrayList<DrawerItem> items = new ArrayList<>();
-
-        // Add forum list
-        items.add(_forumListDrawerItem);
-
-        // Add forums
-        items.add(new DrawerItemHeader("FORUMS"));
-        for (DrawerItem item : _drawerItems)
-        {
-            if (item.type() == DrawerItem.DrawerItemTypes.Forum)
-            {
-                items.add(item);
-            }
-        }
-
-        // Add threads
-        items.add(new DrawerItemHeader("THREADS"));
-        for (DrawerItem item : _drawerItems)
-        {
-            if (item.type() == DrawerItem.DrawerItemTypes.Thread)
-            {
-                items.add(item);
-            }
-        }
-
-        _drawerItems = items;
-        DrawerAdapter adapter = new DrawerAdapter(this, items, this);
+        DrawerAdapter adapter = new DrawerAdapter(this, _drawerItems, this);
         _drawerList.setAdapter(adapter);
     }
 
@@ -145,9 +117,31 @@ public class MainActivity extends ActionBarActivity implements DrawerAdapter.OnI
         this.refreshDrawer();
     }
 
-    public void replaceDrawerItem(DrawerItem item)
+    public void showDrawerItem(DrawerItem item)
     {
+        if (item.type() != DrawerItem.DrawerItemTypes.ForumList)
+        {
+            // Remove the existing item
+            if (_selectedDrawerItem != null)
+            {
+                _drawerItems.remove(_selectedDrawerItem);
+            }
+        }
+
+        // Show the fragment
+        this.showItemFragment(item);
+
+        // Select the item
+        this.setSelectedItem(item);
         this.refreshDrawer();
+    }
+
+    public void showDrawerItemInBackground(DrawerItem item)
+    {
+        // Show drawer item and immediately back to previous item
+        DrawerItem previousItem = _selectedDrawerItem;
+        this.showDrawerItem(item);
+        this.showDrawerItem(previousItem);
     }
 
     @Override
@@ -182,17 +176,34 @@ public class MainActivity extends ActionBarActivity implements DrawerAdapter.OnI
 
     // region Fragment Transactions
 
-    public void showItem(DrawerItem item)
+    private void setSelectedItem(DrawerItem item)
     {
-        this.swapFragment(item.fragment());
+        for (DrawerItem i : _drawerItems)
+        {
+            i.isSelected = false;
+        }
+        item.isSelected = true;
+        _selectedDrawerItem = item;
     }
 
-    private void swapFragment(Fragment fragment)
+    public void showItemFragment(DrawerItem item)
+    {
+        this.swapFragment(item.fragment());
+        this.setSelectedItem(item);
+    }
+
+    private void swapFragment(DrawerListFragment fragment)
     {
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.content_frame, fragment);
-        transaction.commit();
+        transaction.replace(R.id.content_frame, fragment).addToBackStack(fragment.tag()).commit();
+    }
+
+    private void removeFragment(DrawerListFragment fragment)
+    {
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.remove(fragment).commit();
     }
 
     // endregion
@@ -218,7 +229,8 @@ public class MainActivity extends ActionBarActivity implements DrawerAdapter.OnI
         DrawerItem item = _drawerItems.get(position);
         if (item != null && !item.isHeader())
         {
-            this.showItem(item);
+            this.showItemFragment(item);
+            _drawer.closeDrawers();
         }
     }
 
@@ -229,6 +241,10 @@ public class MainActivity extends ActionBarActivity implements DrawerAdapter.OnI
         DrawerItem item = _drawerItems.get(position);
         if (item != null && !item.isHeader())
         {
+            // Close fragment and resources
+            item.fragment().close();
+            removeFragment(item.fragment());
+
             _drawerItems.remove(position);
             this.refreshDrawer();
         }

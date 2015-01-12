@@ -1,5 +1,6 @@
 package nl.nickthissen.iracingforum3.fragments;
 
+import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 
 import nl.nickthissen.iracingforum3.models.drawer.DrawerItem;
@@ -24,4 +25,7 @@ public abstract class DrawerListFragment extends ListFragment
     {
         _drawerItem = item;
     }
+
+    public abstract String tag();
+    public abstract void close();
 }

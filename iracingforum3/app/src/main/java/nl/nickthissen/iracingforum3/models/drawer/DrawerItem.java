@@ -24,6 +24,22 @@ public abstract class DrawerItem implements Serializable
         return _type == DrawerItemTypes.Header;
     }
 
+    public boolean canClick()
+    {
+        return this.type() == DrawerItemTypes.ForumList
+                || this.type() == DrawerItemTypes.Forum
+                || this.type() == DrawerItemTypes.Thread;
+    }
+
+
+    public boolean canClose()
+    {
+        return this.type() == DrawerItemTypes.Forum
+                || this.type() == DrawerItemTypes.Thread;
+    }
+
+    public boolean isSelected;
+
     protected DrawerItemTypes _type;
     public DrawerItemTypes type()
     {
