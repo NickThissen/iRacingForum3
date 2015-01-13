@@ -7,6 +7,13 @@ import java.io.Serializable;
  */
 public class Post implements Serializable
 {
+    public Post(int id, String author, String contents)
+    {
+        this.id = id;
+        this.author = author;
+        this.contents = contents;
+    }
+
     public int id;
     public String url;
 

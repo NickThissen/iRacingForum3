@@ -7,8 +7,9 @@ import java.io.Serializable;
  */
 public class Thread implements Serializable
 {
-    public Thread(String title)
+    public Thread(int id, String title)
     {
+        this.id = id;
         this.title = title;
     }
 

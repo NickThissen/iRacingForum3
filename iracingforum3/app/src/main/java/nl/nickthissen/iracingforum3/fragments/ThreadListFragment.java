@@ -72,12 +72,12 @@ public class ThreadListFragment extends DrawerListFragment implements ThreadList
     void loadThreadsBackground()
     {
         // TODO: Load from website async
-        _threadList.threads.add(new Thread(_forum.title + ", Thread A"));
-        _threadList.threads.add(new Thread(_forum.title + ", Thread B"));
-        _threadList.threads.add(new Thread(_forum.title + ", Thread C"));
-        _threadList.threads.add(new Thread(_forum.title + ", Thread D"));
-        _threadList.threads.add(new Thread(_forum.title + ", Thread E"));
-        _threadList.threads.add(new Thread(_forum.title + ", Thread F"));
+        _threadList.threads.add(new Thread(0, _forum.title + ", Thread A"));
+        _threadList.threads.add(new Thread(1, _forum.title + ", Thread B"));
+        _threadList.threads.add(new Thread(2, _forum.title + ", Thread C"));
+        _threadList.threads.add(new Thread(3, _forum.title + ", Thread D"));
+        _threadList.threads.add(new Thread(4, _forum.title + ", Thread E"));
+        _threadList.threads.add(new Thread(5, _forum.title + ", Thread F"));
 
         this.loadThreadsFinished();
     }
@@ -129,6 +129,7 @@ public class ThreadListFragment extends DrawerListFragment implements ThreadList
 
     @Override public String tag()
     {
-        return "THREADLISTFRAGMENT";
+        Forum forum = (Forum)getArguments().getSerializable(KEY_FORUM);
+        return "THREADLISTFRAGMENT_" + forum.id;
     }
 }

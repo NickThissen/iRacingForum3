@@ -14,6 +14,13 @@ public abstract class DrawerListFragment extends ListFragment
     {
     }
 
+    @Override
+    public void onCreate(Bundle bundle)
+    {
+        // Retain this instance across config changes
+        this.setRetainInstance(true);
+    }
+
     protected DrawerItem _drawerItem;
 
     public DrawerItem getDrawerItem()

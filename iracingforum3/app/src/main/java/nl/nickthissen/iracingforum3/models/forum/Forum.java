@@ -9,8 +9,9 @@ import java.io.Serializable;
  */
 public class Forum implements Serializable
 {
-    public Forum(String title)
+    public Forum(int id, String title)
     {
+        this.id = id;
         this.title = title;
     }
 

@@ -20,6 +20,7 @@ import org.androidannotations.annotations.ViewById;
 import java.util.ArrayList;
 
 import nl.nickthissen.iracingforum3.adapters.DrawerAdapter;
+import nl.nickthissen.iracingforum3.fragments.DrawerControlFragment;
 import nl.nickthissen.iracingforum3.fragments.DrawerListFragment;
 import nl.nickthissen.iracingforum3.fragments.ForumListFragment;
 import nl.nickthissen.iracingforum3.models.drawer.DrawerItem;
@@ -33,9 +34,7 @@ public class MainActivity extends ActionBarActivity implements DrawerAdapter.OnI
     @ViewById(R.id.drawer_layout) DrawerLayout _drawer;
     @ViewById(R.id.left_drawer) ListView _drawerList;
 
-    private ArrayList<DrawerItem> _drawerItems;
-    private ForumListDrawerItem _forumListDrawerItem;
-    private DrawerItem _selectedDrawerItem;
+    private DrawerControlFragment _drawerController;
 
     private ActionBarDrawerToggle _drawerToggle;
     private CharSequence _title;
@@ -44,8 +43,6 @@ public class MainActivity extends ActionBarActivity implements DrawerAdapter.OnI
     @Override protected void onCreate(Bundle bundle)
     {
         super.onCreate(bundle);
-
-
     }
 
     @AfterViews
@@ -60,20 +57,15 @@ public class MainActivity extends ActionBarActivity implements DrawerAdapter.OnI
     {
         // TODO: load before
         ForumList forumList = new ForumList();
-        forumList.forums.add(new Forum("Forum A"));
-        forumList.forums.add(new Forum("Forum B"));
-        forumList.forums.add(new Forum("Forum C"));
-        forumList.forums.add(new Forum("Forum D"));
-        forumList.forums.add(new Forum("Forum E"));
-        forumList.forums.add(new Forum("Forum F"));
+        forumList.forums.add(new Forum(0, "Forum A"));
+        forumList.forums.add(new Forum(1, "Forum B"));
+        forumList.forums.add(new Forum(2, "Forum C"));
+        forumList.forums.add(new Forum(3, "Forum D"));
+        forumList.forums.add(new Forum(4, "Forum E"));
+        forumList.forums.add(new Forum(5, "Forum F"));
 
         ForumListFragment fragment = ForumListFragment.create(forumList);
-       _forumListDrawerItem = new ForumListDrawerItem(forumList, fragment);
-
-        _drawerItems = new ArrayList<>();
-        _drawerItems.add(_forumListDrawerItem); // always on top
-        _selectedDrawerItem = _forumListDrawerItem;
-        this.showItemFragment(_forumListDrawerItem);
+        _drawerController.initForumListDrawerItem(new ForumListDrawerItem(forumList, fragment));
     }
 
     //region Navigation Drawer
@@ -103,6 +95,13 @@ public class MainActivity extends ActionBarActivity implements DrawerAdapter.OnI
         };
 
         _drawer.setDrawerListener(_drawerToggle);
+
+        // Create a DrawerControlFragment as controller for adding/removing drawer items
+        _drawerController = DrawerControlFragment.create();
+
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.content_frame, _drawerController).commit();
     }
 
     private void refreshDrawer()
@@ -148,6 +147,7 @@ public class MainActivity extends ActionBarActivity implements DrawerAdapter.OnI
     protected void onPostCreate(Bundle savedInstanceState)
     {
         super.onPostCreate(savedInstanceState);
+
         // Sync the toggle state after onRestoreInstanceState has occurred.
         _drawerToggle.syncState();
     }
@@ -192,19 +192,7 @@ public class MainActivity extends ActionBarActivity implements DrawerAdapter.OnI
         this.setSelectedItem(item);
     }
 
-    private void swapFragment(DrawerListFragment fragment)
-    {
-        FragmentManager manager = getSupportFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.content_frame, fragment).addToBackStack(fragment.tag()).commit();
-    }
 
-    private void removeFragment(DrawerListFragment fragment)
-    {
-        FragmentManager manager = getSupportFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction();
-        transaction.remove(fragment).commit();
-    }
 
     // endregion
 
