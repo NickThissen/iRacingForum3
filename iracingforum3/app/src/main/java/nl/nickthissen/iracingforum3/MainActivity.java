@@ -49,11 +49,9 @@ public class MainActivity extends ActionBarActivity implements DrawerAdapter.OnI
     void afterViews()
     {
         this.setupDrawer();
-        this.getForums();
-        this.refreshDrawer();
     }
 
-    private void getForums()
+    public ForumList getForums()
     {
         // TODO: load before
         ForumList forumList = new ForumList();
@@ -64,11 +62,16 @@ public class MainActivity extends ActionBarActivity implements DrawerAdapter.OnI
         forumList.forums.add(new Forum(4, "Forum E"));
         forumList.forums.add(new Forum(5, "Forum F"));
 
-        ForumListFragment fragment = ForumListFragment.create(forumList);
-        _drawerController.initForumListDrawerItem(new ForumListDrawerItem(forumList, fragment));
+        return forumList;
     }
 
     //region Navigation Drawer
+
+    @Override public void setTitle(CharSequence title)
+    {
+        super.setTitle(title);
+        _title = title;
+    }
 
     private void setupDrawer()
     {
@@ -104,43 +107,15 @@ public class MainActivity extends ActionBarActivity implements DrawerAdapter.OnI
         transaction.replace(R.id.content_frame, _drawerController).commit();
     }
 
-    private void refreshDrawer()
+    public void refreshDrawer()
     {
-        DrawerAdapter adapter = new DrawerAdapter(this, _drawerItems, this);
+        DrawerAdapter adapter = new DrawerAdapter(this, _drawerController.getDrawerItems(), this);
         _drawerList.setAdapter(adapter);
     }
 
-    public void addDrawerItem(DrawerItem item)
+    public DrawerControlFragment getDrawerController()
     {
-        _drawerItems.add(item);
-        this.refreshDrawer();
-    }
-
-    public void showDrawerItem(DrawerItem item)
-    {
-        if (item.type() != DrawerItem.DrawerItemTypes.ForumList)
-        {
-            // Remove the existing item
-            if (_selectedDrawerItem != null)
-            {
-                _drawerItems.remove(_selectedDrawerItem);
-            }
-        }
-
-        // Show the fragment
-        this.showItemFragment(item);
-
-        // Select the item
-        this.setSelectedItem(item);
-        this.refreshDrawer();
-    }
-
-    public void showDrawerItemInBackground(DrawerItem item)
-    {
-        // Show drawer item and immediately back to previous item
-        DrawerItem previousItem = _selectedDrawerItem;
-        this.showDrawerItem(item);
-        this.showDrawerItem(previousItem);
+        return _drawerController;
     }
 
     @Override
@@ -174,29 +149,6 @@ public class MainActivity extends ActionBarActivity implements DrawerAdapter.OnI
 
     //endregion
 
-    // region Fragment Transactions
-
-    private void setSelectedItem(DrawerItem item)
-    {
-        for (DrawerItem i : _drawerItems)
-        {
-            i.isSelected = false;
-        }
-        item.isSelected = true;
-        _selectedDrawerItem = item;
-    }
-
-    public void showItemFragment(DrawerItem item)
-    {
-        this.swapFragment(item.fragment());
-        this.setSelectedItem(item);
-    }
-
-
-
-    // endregion
-
-
     @Override public boolean onPrepareOptionsMenu(Menu menu)
     {
         if (_drawer.isDrawerOpen(_drawerList))
@@ -210,14 +162,19 @@ public class MainActivity extends ActionBarActivity implements DrawerAdapter.OnI
         return super.onPrepareOptionsMenu(menu);
     }
 
+    //region Fragment transactions
+
     @Override
     public void onClick(View view, int position)
     {
-        // Navigation drawer item selected
-        DrawerItem item = _drawerItems.get(position);
+        // Navigation drawer item clicked
+        DrawerItem item = _drawerController.getItem(position);
         if (item != null && !item.isHeader())
         {
-            this.showItemFragment(item);
+            // Select item
+            _drawerController.selectItem(item);
+
+            // Close the drawer
             _drawer.closeDrawers();
         }
     }
@@ -226,15 +183,10 @@ public class MainActivity extends ActionBarActivity implements DrawerAdapter.OnI
     public void onCloseClick(View view, int position)
     {
         // Navigation drawer item close clicked
-        DrawerItem item = _drawerItems.get(position);
-        if (item != null && !item.isHeader())
-        {
-            // Close fragment and resources
-            item.fragment().close();
-            removeFragment(item.fragment());
-
-            _drawerItems.remove(position);
-            this.refreshDrawer();
-        }
+        DrawerItem item = _drawerController.getItem(position);
+        _drawerController.closeItem(item);
     }
+
+    //endregion
+
 }

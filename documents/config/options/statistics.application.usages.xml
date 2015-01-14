@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application>
+  <component name="StatisticsApplicationUsages">
+    <group name="language-level">
+      <project id="iRacing Forum 3" values="JDK_1_7" />
+      <project id="iracingforum2" values="JDK_1_6" />
+      <project id="iracingforum3" values="JDK_1_6" />
+      <project id="MyApplication" values="JDK_1_6" />
+      <project id="actionbarsherlock" values="JDK_1_6" />
+      <project id="IRacingForum" values="JDK_1_6" />
+      <project id="My Application" values="JDK_1_7" />
+      <project id="activeandroid-parent" values="JDK_1_6" />
+      <project id="iRacingForum3" values="JDK_1_6" />
+      <project id="RemindMe" values="JDK_1_6" />
+    </group>
+    <group name="run-configuration-type">
+      <project id="iRacing Forum 3" values="AndroidRunConfigurationType" />
+      <project id="iracingforum2" values="AndroidRunConfigurationType" />
+      <project id="MyApplication" values="AndroidRunConfigurationType" />
+      <project id="IRacingForum" values="AndroidRunConfigurationType" />
+      <project id="My Application" values="AndroidRunConfigurationType" />
+      <project id="RemindMe" values="AndroidRunConfigurationType" />
+    </group>
+    <group name="module type">
+      <project id="iRacing Forum 3" values="JAVA_MODULE" />
+      <project id="iracingforum2" values="JAVA_MODULE" />
+      <project id="iracingforum3" values="JAVA_MODULE" />
+      <project id="MyApplication" values="JAVA_MODULE" />
+      <project id="actionbarsherlock" values="JAVA_MODULE" />
+      <project id="IRacingForum" values="JAVA_MODULE" />
+      <project id="My Application" values="JAVA_MODULE" />
+      <project id="activeandroid-parent" values="JAVA_MODULE" />
+      <project id="iRacingForum3" values="JAVA_MODULE" />
+      <project id="RemindMe" values="JAVA_MODULE" />
+    </group>
+    <group name="vcs">
+      <project id="iracingforum2" values="svn" />
+      <project id="RemindMe" values="svn" />
+    </group>
+    <group name="frameworks">
+      <project id="iRacing Forum 3" values="android-gradle,android,java-gradle" />
+      <project id="iracingforum2" values="android" />
+      <project id="iracingforum3" values="android" />
+      <project id="MyApplication" values="android,android-gradle" />
+      <project id="actionbarsherlock" values="android" />
+      <project id="IRacingForum" values="android" />
+      <project id="My Application" values="android-gradle,android,java-gradle" />
+      <project id="activeandroid-parent" values="android" />
+      <project id="iRacingForum3" values="android" />
+      <project id="RemindMe" values="android,android-gradle" />
+    </group>
+    <group name="file-type">
+      <project id="iRacing Forum 3" values="UNKNOWN,Images,Groovy,ARCHIVE,PLAIN_TEXT,AIDL,JAVA,IDEA_MODULE,ProGuard File,Properties,XML" />
+      <project id="iracingforum2" values="XML,CLASS,Properties,ARCHIVE,JAVA,ProGuard File,UNKNOWN,Images,PLAIN_TEXT,IDEA_MODULE" />
+      <project id="iracingforum3" values="IDEA_MODULE,UNKNOWN,Images,XML,JAVA,Properties,ARCHIVE" />
+      <project id="MyApplication" values="Images,IDEA_MODULE,JAVA,Properties,XML,ARCHIVE,UNKNOWN,PLAIN_TEXT,Groovy" />
+      <project id="actionbarsherlock" values="UNKNOWN,CLASS,IDEA_MODULE,ARCHIVE,PLAIN_TEXT,Properties,JAVA,Images,XML" />
+      <project id="IRacingForum" values="Images,XML,JAVA,Properties,PLAIN_TEXT,ARCHIVE,CLASS,IDEA_MODULE,UNKNOWN" />
+      <project id="My Application" values="PLAIN_TEXT,JAVA,Groovy,UNKNOWN,Images,AIDL,XML,Properties,IDEA_MODULE,ProGuard File,ARCHIVE" />
+      <project id="activeandroid-parent" values="UNKNOWN,JAVA,IDEA_MODULE,Properties,ARCHIVE,Images,PLAIN_TEXT,XML" />
+      <project id="iRacingForum3" values="XML,UNKNOWN,IDEA_MODULE,JAVA,Properties,Images,ARCHIVE" />
+      <project id="RemindMe" values="UNKNOWN,Images,PLAIN_TEXT,Properties,XML,JAVA,IDEA_MODULE,ARCHIVE,Groovy" />
+    </group>
+    <group name="svn working copy format">
+      <project id="iracingforum2" values="1.7,1.7" />
+    </group>
+  </component>
+  <component name="UsageTrigger">
+    <counts>
+      <entry feature="CreateFile.CreateFileAction" count="1" />
+      <entry feature="execute.AndroidRunConfigurationType.Debug" count="12" />
+      <entry feature="execute.AndroidRunConfigurationType.Run" count="236" />
+      <entry feature="execute.Remote.Debug" count="16" />
+      <entry feature="ide.settings.Font" count="2" />
+      <entry feature="ide.settings.GitHub" count="1" />
+      <entry feature="ide.settings.Java" count="1" />
+      <entry feature="ide.settings.Version_Control" count="1" />
+      <entry feature="ideaapp.started" count="10" />
+    </counts>
+  </component>
+</application>
+

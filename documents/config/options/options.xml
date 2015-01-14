@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application>
+  <component name="DimensionService">
+    <location key="#com.intellij.debugger.actions.ViewTextAction.0.0.1920.1080" x="789" y="362" />
+    <location key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes.0.0.1920.1080" x="579" y="368" />
+    <location key="#iracingforum2.0.0.1920.1080" x="781" y="173" />
+    <location key="WELCOME_SCREEN.0.0.1920.1200" x="959" y="250" />
+    <location key="NewModule_or_Project.wizard.0.0.1920.1080" x="498" y="150" />
+    <location key="FileChooserDialogImpl.0.0.1920.1200" x="739" y="210" />
+    <location key="#Gradle.0.0.1920.1080" x="719" y="281" />
+    <location key="com.intellij.ide.passwordSafe.impl.providers.masterKey.ResetPasswordDialog.0.0.1920.1080" x="694" y="402" />
+    <location key="#com.intellij.util.ui.classpath.ChooseLibrariesDialog.0.0.1920.1080" x="662" y="448" />
+    <location key="FileChooserDialogImpl.0.0.1920.1080" x="738" y="197" />
+    <location key="com.intellij.ide.passwordSafe.impl.providers.masterKey.MasterPasswordDialog.0.0.1920.1080" x="653" y="420" />
+    <location key="chooseDestDirectoryDialog.0.0.1920.1080" x="713" y="284" />
+    <location key="OptionsEditor.0.0.1920.1080" x="206" y="100" />
+    <location key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog.0.0.1920.1080" x="809" y="391" />
+    <location key="#Project_Structure.0.0.1920.1080" x="313" y="76" />
+    <location key="AndroidCreateXmlResourceDialog.0.0.1920.1080" x="753" y="288" />
+    <location key="DetectedRootsChooserDialog.0.0.1920.1080" x="784" y="308" />
+    <location key="NewModule_or_Project.wizard.0.0.1920.1200" x="618" y="189" />
+    <location key="AndroidThemeDialog.0.0.1920.1080" x="539" y="212" />
+    <location key="#com.intellij.ide.util.frameworkSupport.AddFrameworkSupportDialog.0.0.1920.1200" x="743" y="312" />
+    <location key="AndroidProcessChooserDialog.0.0.1920.1080" x="814" y="285" />
+    <location key="IdeErrosDialog.0.0.1920.1080" x="535" y="302" />
+    <location key="#com.intellij.openapi.roots.ui.configuration.libraryEditor.LibraryEditorDialog.0.0.1920.1080" x="789" y="194" />
+    <location key="WELCOME_SCREEN.0.0.1920.1080" x="960" y="306" />
+    <location key="#com.intellij.execution.impl.EditConfigurationsDialog.0.0.1920.1080" x="413" y="162" />
+    <location key="WELCOME_SCREEN.1920.0.1440.900" x="960" y="525" />
+    <location key="AndroidExtendedDeviceChooserDialog.0.0.1920.1080" x="714" y="302" />
+    <location key="#com.intellij.codeInsight.editorActions.RestoreReferencesDialog.0.0.1920.1080" x="689" y="262" />
+    <location key="OptionsEditor.0.0.1920.1200" x="326" y="80" />
+    <location key="#com.intellij.ide.util.MemberChooser.0.0.1920.1080" x="764" y="237" />
+    <location key="#app.0.0.1920.1080" x="683" y="48" />
+    <location key="AndroidCreateResourceFileDialog.0.0.1920.1080" x="539" y="259" />
+    <size key="GridCell.Tab.0.center.0.0.1920.1080" width="1870" height="259" />
+    <size key="GridCell.Tab.2.right.0.0.1920.1080" width="1870" height="321" />
+    <size key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes.0.0.1920.1080" width="762" height="315" />
+    <size key="GridCell.Tab.2.left.0.0.1920.1080" width="1870" height="321" />
+    <size key="GridCell.Tab.1.left.0.0.1920.1080" width="1870" height="321" />
+    <size key="GridCell.Tab.1.bottom.0.0.1920.1080" width="1870" height="321" />
+    <size key="GridCell.Tab.1.center.0.0.1920.1080" width="1870" height="321" />
+    <size key="GridCell.Tab.0.left.0.0.1920.1080" width="1870" height="259" />
+    <size key="javadoc.popup.0.0.1920.1080" width="502" height="129" />
+    <size key="GridCell.Tab.1.right.0.0.1920.1080" width="1870" height="321" />
+    <size key="GridCell.Tab.0.right.0.0.1920.1080" width="1870" height="259" />
+    <size key="GridCell.Tab.2.center.0.0.1920.1080" width="1870" height="321" />
+    <size key="GridCell.Tab.0.bottom.0.0.1920.1080" width="1870" height="259" />
+    <size key="GridCell.Tab.2.bottom.0.0.1920.1080" width="1870" height="321" />
+    <size key="NewModule_or_Project.wizard.0.0.1920.1080" width="530" height="679" />
+  </component>
+  <component name="LafManager">
+    <laf class-name="idea.dark.laf.classname" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="android.resource_dialog_splitter" value="0.8" />
+    <property name="DefaultHtmlDoctype.MigrateToHtml5" value="true" />
+    <property name="AndroidStudioSpecificInitializer.V1" value="true" />
+    <property name="MemberChooser.sorted" value="true" />
+    <property name="create.project.preferred.importer" value="Existing Sources" />
+    <property name="AndroidEnableDdms" value="true" />
+    <property name="ANDROID_DEBUG_SELECTED_TAB_AndroidRunConfigurationType" value="Watches" />
+    <property name="ShowDocumentationInToolWindow" value="false" />
+    <property name="file.colors.enable.non.project" value="Yellow" />
+    <property name="project.jdk.splitter" value="0.2" />
+    <property name="RunConfigurable.dividerProportion" value="0.3" />
+    <property name="GoToClass.toSaveIncludeLibraries" value="false" />
+    <property name="default.storage.format" value=".idea (directory based)" />
+    <property name="ChangesViewManager.DETAILS_SPLITTER_PROPORTION" value="0.5" />
+    <property name="MemberChooser.showClasses" value="true" />
+    <property name="ExpandBeforeRunStepsPanel" value="true" />
+    <property name="GoToClass.includeLibraries" value="false" />
+    <property name="GoToFile.includeJavaFiles" value="false" />
+    <property name="Non-Project Files" value="Yellow" />
+    <property name="com.intellij.diagnostic.IdeErrorsDialogactiveTab" value="0" />
+    <property name="AndroidPlatformName" value="Android 4.2.2" />
+    <property name="MemberChooser.copyJavadoc" value="false" />
+    <property name="AndroidInitConfigurator.V1" value="true" />
+    <property name="com.intellij.openapi.roots.ui.configuration.TabbedModuleEditor.selectedEditor" value="Sources" />
+    <property name="LayoutCode.processChangedText" value="false" />
+    <property name="file.chooser.recent.files" value="$USER_HOME$/Documents/Android/iRacingForum3/iracingforum3/app/libs/volley.jar&#10;C:/Users/nthissen/Documents/Android/iRacingForum3/androidannotations/AndroidAnnotations/androidannotations&#10;C:/Users/nthissen/Documents/Android/iRacingForum3/androidannotations/AndroidAnnotations&#10;C:/Users/nthissen/Documents/Android/iRacingForum3/volley&#10;C:/Users/nthissen/Documents/Android/iRacingForum3/androidannotations&#10;C:/Users/nthissen/Documents/Android/iRacingForum3&#10;C:/Users/nthissen/Documents/Android/iRacingForum2/iracingforum2&#10;C:/Users/nthissen/Documents/Android/RemindMeProject/RemindMeProject&#10;C:/Users/nthissen/Documents/Android/RemindMeProject&#10;C:/Users/nthissen/Dropbox/Android/ActiveAndroid-master&#10;C:/Users/nthissen/Dropbox/Android&#10;C:/Users/nthissen/Documents/Android/iRacingForum2/keystore&#10;C:/Users/nthissen/Dropbox/Eclipse Projects/keystores/newstore&#10;C:/Users/nthissen/Dropbox/Eclipse Projects/keystores/keystore&#10;C:/Users/nthissen/Dropbox/Eclipse Projects/workspaces/IRacingForum&#10;C:/Users/nthissen/Documents/Android/iRacingForum2/actionbarsherlock&#10;C:/Users/nthissen/AppData/Local/Android/android-sdk&#10;C:/Program Files/Java/jdk1.7.0_09&#10;C:/Users/nthissen/Documents/Android/actionbarsherlock/library&#10;C:/Users/nthissen/Documents/Android/iRacingForum2&#10;E:/Users/Nick/My Documents/Android/iRacingForum2/iracingforum2&#10;E:/Users/Nick/My Documents/Android/iRacingForum2&#10;C:/Users/Nick/My Documents" />
+    <property name="LayoutCode.rearrangeEntries" value="false" />
+    <property name="LayoutCode.optimizeImports" value="false" />
+    <property name="FindSplitterProportion" value="0.25" />
+    <property name="last.imported.location" value="$USER_HOME$/Documents/Android/iRacingForum3" />
+    <property name="ColorChooser.RecentColors" value="159-0-0-255,,,124-0-0-255,,,118-182-103-255,,,126-126-125-255,,,174-174-173-255,,,139-255-199-255,,,64-191-137-255,,,64-64-64-255,,,186-186-186-255,,,201-201-201-255,,,86-86-86-255,,,105-105-105-255,,,119-119-119-255,,,189-205-221-255,,,133-112-204-255,,,89-75-137-255,,,83-57-175-255,,,49-166-175-255,,,196-112-38-255,,,145-145-145-255" />
+    <property name="log.debug.categories" value="" />
+    <property name="AndroidInitConfigurator.V3" value="true" />
+    <property name="AndroidInitConfigurator.V2" value="true" />
+    <property name="toolwindow.stripes.buttons.info.shown" value="true" />
+    <property name="DefaultHtmlDoctype.Refreshed" value="1" />
+    <property name="AndroidInitConfigurator.V4" value="true" />
+    <property name="file.colors.enable.tests" value="2a3b2c" />
+    <property name="Tests" value="2a3b2c" />
+    <property name="SAVED_COMPANY_DOMAIN" value="nickthissen.nl" />
+    <property name="MobileminApi" value="14" />
+    <property name="android.logcat.filter.apply.if.client.selection.changes" value="false" />
+    <property name="filter_non_existing" value="false" />
+    <property name="LOG_FILTER_HISTORY" value="iRacingForum3" />
+    <property name="Copy.OpenInEditor" value="true" />
+  </component>
+</application>
+

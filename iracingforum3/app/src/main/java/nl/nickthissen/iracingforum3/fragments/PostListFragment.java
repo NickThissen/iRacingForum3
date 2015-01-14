@@ -59,6 +59,7 @@ public class PostListFragment extends DrawerListFragment implements PostListAdap
 
     private void loadPosts()
     {
+        _postList.posts.clear();
         _postList.posts.add(new Post(0, "Nick Thissen", "This is a test post."));
         _postList.posts.add(new Post(1, "Joep Willemsen", "Another test post."));
         _postList.posts.add(new Post(2, "Tony Gardner", "Hello.\n\nTest newlines."));

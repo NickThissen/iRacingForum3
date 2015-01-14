@@ -1,6 +1,7 @@
 package nl.nickthissen.iracingforum3.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,7 +58,7 @@ public class DrawerAdapter extends ArrayAdapter<DrawerItem>
 
         if (item.isSelected)
         {
-            background.setBackground(_selectionBackground);
+            background.setBackgroundColor(Color.RED);
         }
 
         // Set click handlers

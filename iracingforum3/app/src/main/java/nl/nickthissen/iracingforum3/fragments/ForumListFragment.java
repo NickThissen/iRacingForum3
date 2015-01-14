@@ -71,22 +71,36 @@ public class ForumListFragment extends DrawerListFragment implements ForumListAd
     @Override
     public void onItemClicked(Forum forum, int position)
     {
-        // Create new drawer item and fragment
-        ForumDrawerItem item = createDrawerItem(forum);
+        // Normal-clicked a forum in the ForumList
 
-        // Replace current
-        _activity.showDrawerItem(item);
+        // Create drawer item and add it to the drawer
+        DrawerItem item = this.createAndAddForumDrawerItem(forum);
+
+        // Select it and make the Fragment visible
+        _activity.getDrawerController().selectItem(item);
     }
 
     @Override
     public void onItemLongClicked(Forum forum, int position)
     {
-        // Create new drawer item and fragment
+        // Long-clicked a forum: open in background in new tab
+
+        // Create drawer item and add it to the drawer
+        DrawerItem item = this.createAndAddForumDrawerItem(forum);
+
+        // Open in background
+        _activity.getDrawerController().openInBackground(item);
+    }
+
+    private DrawerItem createAndAddForumDrawerItem(Forum forum)
+    {
+        // Create a new drawer item for the clicked forum
         ForumDrawerItem item = createDrawerItem(forum);
 
-        // Add it to the navigation drawer in the background
-        _activity.addDrawerItem(item);
-        _activity.showDrawerItemInBackground(item);
+        // Add it to the drawer (never replace to Forum List item!)
+        _activity.getDrawerController().addItem(item);
+
+        return item;
     }
 
     private ForumDrawerItem createDrawerItem(Forum forum)

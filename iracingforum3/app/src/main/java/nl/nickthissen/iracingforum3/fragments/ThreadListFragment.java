@@ -1,22 +1,15 @@
 package nl.nickthissen.iracingforum3.fragments;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.app.ListFragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
-import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.UiThread;
 
-import java.util.ArrayList;
-
 import nl.nickthissen.iracingforum3.MainActivity;
 import nl.nickthissen.iracingforum3.R;
 import nl.nickthissen.iracingforum3.adapters.ThreadListAdapter;
+import nl.nickthissen.iracingforum3.models.drawer.DrawerItem;
 import nl.nickthissen.iracingforum3.models.drawer.ThreadDrawerItem;
 import nl.nickthissen.iracingforum3.models.forum.Forum;
 import nl.nickthissen.iracingforum3.models.forum.Thread;
@@ -72,6 +65,7 @@ public class ThreadListFragment extends DrawerListFragment implements ThreadList
     void loadThreadsBackground()
     {
         // TODO: Load from website async
+        _threadList.threads.clear();
         _threadList.threads.add(new Thread(0, _forum.title + ", Thread A"));
         _threadList.threads.add(new Thread(1, _forum.title + ", Thread B"));
         _threadList.threads.add(new Thread(2, _forum.title + ", Thread C"));
@@ -97,24 +91,34 @@ public class ThreadListFragment extends DrawerListFragment implements ThreadList
     @Override
     public void onItemClicked(Thread thread, int position)
     {
-        // Create new drawer item and fragment
-        ThreadDrawerItem item = createDrawerItem(thread);
+        // Normal-clicked a thread in this threadlist / forum
 
-        // Replace current
-        _activity.showDrawerItem(item);
+        // Create new drawer item and add it to the drawer
+        DrawerItem item = this.createThreadDrawerItem(thread);
+
+        // Remove current item / Fragment
+        _activity.getDrawerController().removeCurrentItem();
+
+        // Add the new item
+        _activity.getDrawerController().addItem(item);
+
+        // Select it and make the Fragment visible
+        _activity.getDrawerController().selectItem(item);
     }
 
     @Override
     public void onItemLongClicked(Thread thread, int position)
     {
-        // Create new drawer item and fragment
-        ThreadDrawerItem item = createDrawerItem(thread);
+        // Long-clicked a thread: open in background
 
-        // Add to navigation drawer
-        _activity.addDrawerItem(item);
+        // Create new drawer item
+        DrawerItem item = this.createThreadDrawerItem(thread);
+
+        // Add to drawer
+        _activity.getDrawerController().addItem(item);
     }
 
-    private ThreadDrawerItem createDrawerItem(Thread thread)
+    private ThreadDrawerItem createThreadDrawerItem(Thread thread)
     {
         PostListFragment fragment = PostListFragment.create(thread);
         ThreadDrawerItem item = new ThreadDrawerItem(thread, fragment);

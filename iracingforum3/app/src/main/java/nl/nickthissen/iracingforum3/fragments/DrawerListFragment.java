@@ -17,8 +17,10 @@ public abstract class DrawerListFragment extends ListFragment
     @Override
     public void onCreate(Bundle bundle)
     {
+        super.onCreate(bundle);
+
         // Retain this instance across config changes
-        this.setRetainInstance(true);
+        //this.setRetainInstance(true);
     }
 
     protected DrawerItem _drawerItem;
@@ -31,6 +33,12 @@ public abstract class DrawerListFragment extends ListFragment
     public void setDrawerItem(DrawerItem item)
     {
         _drawerItem = item;
+    }
+
+    public String title()
+    {
+        if (_drawerItem == null) return "iRacing Forum 3";
+        return _drawerItem.title;
     }
 
     public abstract String tag();
