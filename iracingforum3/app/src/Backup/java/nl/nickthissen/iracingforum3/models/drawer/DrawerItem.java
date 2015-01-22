@@ -3,6 +3,7 @@ package nl.nickthissen.iracingforum3.models.drawer;
 import android.support.v4.app.ListFragment;
 
 import java.io.Serializable;
+import java.util.Stack;
 
 import nl.nickthissen.iracingforum3.fragments.DrawerListFragment;
 
@@ -11,10 +12,14 @@ import nl.nickthissen.iracingforum3.fragments.DrawerListFragment;
  */
 public abstract class DrawerItem implements Serializable
 {
+    private Stack<DrawerItem> _backStack;
+
     public DrawerItem(String title, DrawerItemTypes type)
     {
         this.title = title;
         this._type = type;
+
+        _backStack = new Stack<>();
     }
 
     public String title;
@@ -22,6 +27,11 @@ public abstract class DrawerItem implements Serializable
     public boolean isHeader()
     {
         return _type == DrawerItemTypes.Header;
+    }
+
+    public void replaceFragment(DrawerListFragment fragment)
+    {
+
     }
 
     public boolean canClick()
@@ -34,8 +44,7 @@ public abstract class DrawerItem implements Serializable
 
     public boolean canClose()
     {
-        return this.type() == DrawerItemTypes.Forum
-                || this.type() == DrawerItemTypes.Thread;
+        return this.type() != DrawerItemTypes.Header;
     }
 
     public boolean isSelected;

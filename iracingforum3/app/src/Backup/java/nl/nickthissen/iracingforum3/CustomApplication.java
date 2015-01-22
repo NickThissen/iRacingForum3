@@ -2,7 +2,6 @@ package nl.nickthissen.iracingforum3;
 
 import android.app.Application;
 
-import nl.nickthissen.iracingforum3.network.ForumNetwork;
 import nl.nickthissen.iracingforum3.network.Network;
 
 /**
@@ -15,6 +14,6 @@ public class CustomApplication extends Application
     {
         super.onCreate();
 
-        ForumNetwork.init(this.getApplicationContext());
+        Network.init(this.getApplicationContext());
     }
 }

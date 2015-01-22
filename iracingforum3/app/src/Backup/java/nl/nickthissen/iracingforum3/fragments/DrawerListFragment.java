@@ -43,4 +43,6 @@ public abstract class DrawerListFragment extends ListFragment
 
     public abstract String tag();
     public abstract void close();
+
+    public abstract boolean onBackPressed();
 }

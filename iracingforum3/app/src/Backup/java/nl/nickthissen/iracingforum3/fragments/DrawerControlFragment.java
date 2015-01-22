@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 import nl.nickthissen.iracingforum3.MainActivity;
 import nl.nickthissen.iracingforum3.R;
@@ -39,8 +40,7 @@ public class DrawerControlFragment extends Fragment
         super.onAttach(activity);
         _activity = (MainActivity) activity;
 
-        ForumListDrawerItem item = this.createForumListDrawerItem(_activity.getForums());
-        this.initForumListDrawerItem(item);
+        this.addNewTab();
     }
 
     @Override public void onDetach()
@@ -57,21 +57,11 @@ public class DrawerControlFragment extends Fragment
     private ArrayList<DrawerItem> _drawerItems;
     public ArrayList<DrawerItem> getDrawerItems() {return _drawerItems;}
 
-    private ForumListDrawerItem _forumListDrawerItem;
-    public ForumListDrawerItem getForumListDrawerItem(){ return _forumListDrawerItem;}
-
     private ForumListDrawerItem createForumListDrawerItem(ForumList forumList)
     {
         ForumListFragment fragment = ForumListFragment.create(forumList);
         ForumListDrawerItem item = new ForumListDrawerItem(forumList, fragment);
         return item;
-    }
-
-    private void initForumListDrawerItem(ForumListDrawerItem item)
-    {
-        _forumListDrawerItem = item;
-        addItem(item);
-        selectItem(item);
     }
 
     private DrawerItem _selectedDrawerItem;
@@ -83,16 +73,45 @@ public class DrawerControlFragment extends Fragment
         return _drawerItems.get(position);
     }
 
-    /**
-     * Is the ForumList drawer item currently selected?
-     */
-    public boolean isForumListSelected()
+    public void addNewTab()
     {
-        return _selectedDrawerItem != null
-                && _selectedDrawerItem.fragment() != null
-                && _forumListDrawerItem != null
-                && _forumListDrawerItem.fragment() != null
-                && _selectedDrawerItem.fragment().tag() == _forumListDrawerItem.fragment().tag();
+        if (!this.isAttached()) return;
+
+        DrawerItem item = this.createForumListDrawerItem(_activity.getForums());
+        _drawerItems.add(item);
+        this.addFragment(item.fragment());
+        this.selectItem(item);
+    }
+
+    public void replaceCurrentItem(DrawerItem item)
+    {
+        // Stay in the current 'tab' and replace Fragment
+
+        // Get selected item and replace it
+        DrawerItem selected = this.getSelectedDrawerItem();
+
+        // Replace Fragments
+        this.hideFragment(selected.fragment());
+        this.addFragment(item.fragment());
+
+        // Remove old item
+        _drawerItems.remove(selected);
+
+        // Add new item
+        _drawerItems.add(item);
+
+        // Select new item
+        this.selectItem(item);
+    }
+
+    public void switchToItem(DrawerItem item)
+    {
+        // Get selected item and replace it
+        DrawerItem selected = this.getSelectedDrawerItem();
+        this.replaceFragment(selected.fragment(), item.fragment());
+
+        // Select it
+        this.selectItem(item);
     }
 
     /**
@@ -111,34 +130,8 @@ public class DrawerControlFragment extends Fragment
 
         _selectedDrawerItem = item;
 
-        // Show the fragment
-        this.swapFragment(item.fragment());
-
         // Refresh the drawer
         _activity.refreshDrawer();
-    }
-
-    /**
-     * Removes the currently selected item from the drawer and closes the Fragment
-     */
-    public void removeCurrentItem()
-    {
-        if (!isAttached()) return;
-        DrawerItem item = this.getSelectedDrawerItem();
-        this.closeItem(item);
-    }
-
-    /**
-     * Add a drawer item to the drawer but do not show it (yet).
-     */
-    public void addItem(DrawerItem item)
-    {
-        if (!isAttached()) return;
-        if (item != null)
-        {
-            _drawerItems.add(item);
-            _activity.refreshDrawer();
-        }
     }
 
     /**
@@ -160,8 +153,11 @@ public class DrawerControlFragment extends Fragment
         // Show and immediately show previous again to trigger loading
         DrawerItem selected = this.getSelectedDrawerItem();
 
-        this.swapFragment(item.fragment());
-        this.selectItem(selected);
+        // Add fragment
+        this.addFragment(item.fragment());
+
+        // Hide it again by replacing it with previously selected
+        this.replaceFragment(item.fragment(), selected.fragment());
     }
 
     private void removeDrawerItem(DrawerItem item)
@@ -173,14 +169,49 @@ public class DrawerControlFragment extends Fragment
         }
     }
 
-    private void swapFragment(DrawerListFragment fragment)
+    private void addFragment(DrawerListFragment fragment)
     {
         if (!isAttached()) return;
         FragmentManager manager = _activity.getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.content_frame, fragment, fragment.tag()).addToBackStack(fragment.tag()).commit();
+        transaction.add(R.id.content_frame, fragment, fragment.tag())
+                .addToBackStack("ADD_" + fragment.tag())
+                .commit();
 
-        _activity.setTitle(fragment.title());
+        _activity.getSupportActionBar().setTitle(fragment.title());
+    }
+
+    private void replaceFragment(DrawerListFragment current, DrawerListFragment replacement)
+    {
+        if (!isAttached()) return;
+
+        FragmentManager manager = _activity.getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+
+        if (current == null)
+        {
+            transaction.show(replacement)
+                    .addToBackStack("REPLACE_NULL_BY_" + replacement.tag())
+                    .commit();
+        }
+        else
+        {
+            transaction.hide(current)
+                    .show(replacement)
+                    .addToBackStack("REPLACE_" + current.tag() + "_BY_" + replacement.tag())
+                    .commit();
+        }
+
+        _activity.setTitle(replacement.title());
+    }
+
+    private void hideFragment(DrawerListFragment fragment)
+    {
+        if (!isAttached()) return;
+
+        FragmentManager manager = _activity.getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.hide(fragment).addToBackStack("HIDE_" + fragment.tag()).commit();
     }
 
     private void removeFragment(DrawerListFragment fragment)
@@ -189,6 +220,16 @@ public class DrawerControlFragment extends Fragment
         FragmentManager manager = _activity.getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.remove(fragment).commit();
+    }
+
+    public boolean onBackPressed()
+    {
+        DrawerItem selected = this.getSelectedDrawerItem();
+        if (selected != null && selected.fragment() != null)
+        {
+            if (selected.fragment().onBackPressed()) return true;
+        }
+        return false;
     }
 
 }

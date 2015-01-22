@@ -61,7 +61,7 @@ public class ThreadListFragment extends DrawerListFragment implements ThreadList
         this.loadThreadsBackground();
     }
 
-    @Background(delay=5000)
+    @Background(delay=2000)
     void loadThreadsBackground()
     {
         // TODO: Load from website async
@@ -93,17 +93,11 @@ public class ThreadListFragment extends DrawerListFragment implements ThreadList
     {
         // Normal-clicked a thread in this threadlist / forum
 
-        // Create new drawer item and add it to the drawer
+        // Create new drawer item
         DrawerItem item = this.createThreadDrawerItem(thread);
 
-        // Remove current item / Fragment
-        _activity.getDrawerController().removeCurrentItem();
-
-        // Add the new item
-        _activity.getDrawerController().addItem(item);
-
-        // Select it and make the Fragment visible
-        _activity.getDrawerController().selectItem(item);
+        // Replace current item
+        _activity.getDrawerController().replaceCurrentItem(item);
     }
 
     @Override
@@ -114,8 +108,8 @@ public class ThreadListFragment extends DrawerListFragment implements ThreadList
         // Create new drawer item
         DrawerItem item = this.createThreadDrawerItem(thread);
 
-        // Add to drawer
-        _activity.getDrawerController().addItem(item);
+        // Open in background
+        _activity.getDrawerController().openInBackground(item);
     }
 
     private ThreadDrawerItem createThreadDrawerItem(Thread thread)
@@ -130,6 +124,11 @@ public class ThreadListFragment extends DrawerListFragment implements ThreadList
         // TODO: cancel web tasks
     }
 
+    @Override public boolean onBackPressed()
+    {
+        // Back to forum list
+        return false;
+    }
 
     @Override public String tag()
     {

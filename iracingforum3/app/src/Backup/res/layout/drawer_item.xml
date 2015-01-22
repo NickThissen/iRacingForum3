@@ -1,0 +1,25 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/background"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="#fff">
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:minHeight="50dp"
+        android:textColor="#000"
+            />
+
+    <Button
+        android:id="@+id/closeButton"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:text="x"
+        />
+</LinearLayout>

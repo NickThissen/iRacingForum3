@@ -18,15 +18,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-
         </activity>
-        <activity
-                android:name=".activities.ForumListActivity_"
-                android:label="iRacing Forum 3"/>
-        <activity
-                android:name=".activities.ThreadListActivity_"
-                android:label="iRacing Forum 3"/>
     </application>
 
 </manifest>

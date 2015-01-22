@@ -73,11 +73,11 @@ public class ForumListFragment extends DrawerListFragment implements ForumListAd
     {
         // Normal-clicked a forum in the ForumList
 
-        // Create drawer item and add it to the drawer
-        DrawerItem item = this.createAndAddForumDrawerItem(forum);
+        // Create drawer item
+        DrawerItem item = this.createForumDrawerItem(forum);
 
-        // Select it and make the Fragment visible
-        _activity.getDrawerController().selectItem(item);
+        // Replace current item
+        _activity.getDrawerController().replaceCurrentItem(item);
     }
 
     @Override
@@ -86,24 +86,13 @@ public class ForumListFragment extends DrawerListFragment implements ForumListAd
         // Long-clicked a forum: open in background in new tab
 
         // Create drawer item and add it to the drawer
-        DrawerItem item = this.createAndAddForumDrawerItem(forum);
+        DrawerItem item = this.createForumDrawerItem(forum);
 
         // Open in background
         _activity.getDrawerController().openInBackground(item);
     }
 
-    private DrawerItem createAndAddForumDrawerItem(Forum forum)
-    {
-        // Create a new drawer item for the clicked forum
-        ForumDrawerItem item = createDrawerItem(forum);
-
-        // Add it to the drawer (never replace to Forum List item!)
-        _activity.getDrawerController().addItem(item);
-
-        return item;
-    }
-
-    private ForumDrawerItem createDrawerItem(Forum forum)
+    private ForumDrawerItem createForumDrawerItem(Forum forum)
     {
         ThreadListFragment fragment = ThreadListFragment.create(forum);
         ForumDrawerItem item = new ForumDrawerItem(forum, fragment);
@@ -113,6 +102,11 @@ public class ForumListFragment extends DrawerListFragment implements ForumListAd
     @Override public void close()
     {
         // TODO: cancel web tasks
+    }
+
+    @Override public boolean onBackPressed()
+    {
+        return false;
     }
 
     @Override public String tag()

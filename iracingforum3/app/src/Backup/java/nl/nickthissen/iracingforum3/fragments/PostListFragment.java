@@ -95,6 +95,12 @@ public class PostListFragment extends DrawerListFragment implements PostListAdap
         // TODO: cancel web tasks
     }
 
+    @Override public boolean onBackPressed()
+    {
+        // Back to forum list
+        return false;
+    }
+
     @Override public String tag()
     {
         Thread thread = (Thread)getArguments().getSerializable(KEY_THREAD);

@@ -9,19 +9,29 @@ import com.android.volley.toolbox.Volley;
 /**
  * Created by nthissen on 09/01/2015.
  */
-public abstract class Network
+public class Network
 {
-    private RequestQueue _queue;
+    private Context _context;
 
-    protected Network(Context context)
+    private Network(Context context)
     {
         _context = context;
         _queue = Volley.newRequestQueue(context.getApplicationContext());
     }
 
-    private Context _context;
-    public Context getContext() {return _context;}
+    public static void init(Context context)
+    {
+        _instance = new Network(context);
+    }
 
+    private static Network _instance;
+    public static synchronized Network getInstance()
+    {
+        if (_instance == null) throw new RuntimeException("Networking is not initialized.");
+        return _instance;
+    }
+
+    private RequestQueue _queue;
 
     public void addRequest(Request req)
     {
